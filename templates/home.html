@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Huffman System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>📦 Huffman File System</h1>
+        <p class="subtitle">Choose an operation</p>
+
+        <div class="choice-buttons">
+            <a href="/send" class="btn">📤 Send File <br></a>
+            <a href="/receive" class="btn secondary">📥 Receive File</a>
+        </div>
+
+        <div class="choice-buttons">
+            <a href="/compress" class="btn">📦 Compress File</a>
+            <a href="/decompress" class="btn secondary">📂 Decompress File</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

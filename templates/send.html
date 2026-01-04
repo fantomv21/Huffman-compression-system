@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Huffman Compressor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>📦 Huffman File Sender</h1>
+        <p class="subtitle">
+            Compress a file and generate a secure download key
+        </p>
+
+        <!-- SENDER FORM -->
+        <form method="POST" enctype="multipart/form-data" id="sendForm">
+            <label class="file-upload">
+                <input type="file" name="file" id="fileInput" required {% if key %}disabled{% endif %}>
+                <span id="fileText">
+                    {% if key %}
+                        📄 File uploaded
+                    {% else %}
+                        📁 Choose a file
+                    {% endif %}
+                </span>
+            </label>
+
+            <button type="submit" class="btn" {% if key %}disabled{% endif %}>
+                Compress & Generate Key
+            </button>
+        </form>
+
+        <!-- KEY DISPLAY -->
+        {% if key %}
+        <div class="key-box">
+            <p class="key-title">🔑 Download Key</p>
+
+            <div class="key-row">
+                <span id="keyValue">{{ key }}</span>
+                <button type="button" class="copy-btn" onclick="copyKey()">Copy</button>
+            </div>
+
+            <p class="note key-note">
+                Share this key with the receiver.<br>
+                ⏳ Key expires in <b><span id="timer">05:00</span></b>
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- DETECTED FILE TYPE & WARNING -->
+
+        {% if file_type %}
+        <div class="file-type-box" style="background:#e7f3fe;border:1px solid #b3d8fd;padding:10px;border-radius:6px;margin-top:10px;">
+            <strong>Detected file type:</strong>
+            <span style="font-weight:bold;">{{ file_type }}</span>
+        </div>
+        {% endif %}
+
+        {% if warning %}
+        <div class="warning-box" style="background:#fff3cd;border:1px solid #ffeeba;padding:10px;border-radius:6px;margin-top:10px;">
+            <strong>Warning:</strong>
+            <p style="margin:6px 0 0 0;">{{ warning }}</p>
+        </div>
+        {% endif %}
+
+        <!-- STATS -->
+        {% if stats %}
+        <div class="stats-box">
+            <p class="stats-title">📊 Compression Statistics</p>
+            <p>Original Size: <b>{{ stats.original }}</b> bytes</p>
+            <p>Compressed Size: <b>{{ stats.compressed }}</b> bytes</p>
+            <p>Compression Ratio: <b>{{ stats.ratio }} : 1</b></p>
+        </div>
+        {% endif %}
+
+        <p class="note spaced">
+            The file is compressed on the server and protected using a unique key.
+        </p>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileText = document.getElementById("fileText");
+
+if (fileInput && !fileInput.disabled) {
+    fileInput.addEventListener("change", () => {
+        fileText.textContent = fileInput.files.length > 0
+            ? "📄 " + fileInput.files[0].name
+            : "📁 Choose a file";
+    });
+}
+
+// Copy key
+function copyKey() {
+    navigator.clipboard.writeText(
+        document.getElementById("keyValue").innerText
+    );
+    alert("Download key copied!");
+}
+
+// Countdown timer (5 minutes)
+
+let timeLeft = 300; // seconds
+
+const timerEl = document.getElementById("timer");
+const countdown = setInterval(() => {
+    let min = Math.floor(timeLeft / 60);
+    let sec = timeLeft % 60;
+
+    timerEl.textContent =
+        String(min).padStart(2, "0") + ":" +
+        String(sec).padStart(2, "0");
+
+    timeLeft--;
+
+    if (timeLeft < 0) {
+        clearInterval(countdown);
+        timerEl.textContent = "Expired";
+    }
+}, 1000);
+
+</script>
+
+</body>
+</html>

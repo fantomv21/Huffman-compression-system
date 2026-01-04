@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compress File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>📦 Compress File</h1>
+        <p class="subtitle">
+            Compress a file locally using Huffman Coding
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label class="file-upload">
+                <input type="file" name="file" id="fileInput" required>
+                <span id="fileText">📁 Choose a file</span>
+            </label>
+
+            <button type="submit" class="btn">
+                Compress & Download
+            </button>
+        </form>
+
+        <p class="note">
+            The compressed file will be downloaded as <b>_compressed.huff</b>
+        </p>
+    </div>
+
+    <footer>
+        <p>Built using C + Flask | Huffman Coding Project</p>
+    </footer>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileText = document.getElementById("fileText");
+
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        fileText.textContent = "📄 " + fileInput.files[0].name;
+    } else {
+        fileText.textContent = "📁 Choose a file";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+# ---------------- Python ----------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+ENV/
+
+# ---------------- Flask ----------------
+instance/
+*.log
+
+# ---------------- Uploaded & Generated Files ----------------
+uploads/
+compressed/
+decompressed/
+
+# ---------------- Executables ----------------
+*.exe
+*.out
+
+# ---------------- OS ----------------
+.DS_Store
+Thumbs.db
+
+# ---------------- IDE ----------------
+.vscode/
+.idea/
