@@ -4,3 +4,6 @@ Huffman Compression System is a web-based file compression and decompression app
 
 To run the Huffman Compression System, first ensure that Python, GCC (MinGW on Windows), and Flask are installed and available in the system PATH. Open a terminal in the project directory and compile the C programs using gcc huffman_compress.c -o huffman_compress and gcc huffman_decompress.c -o huffman_decompress, which will generate the required executables. Next, install Flask using pip install flask if it is not already installed, and start the web application by running python app.py. Once the Flask server is running, open a web browser and navigate to http://localhost:5000 to access the application, where files can be compressed, shared using a secure key, and decompressed through the 
 web interface.
+
+
+
